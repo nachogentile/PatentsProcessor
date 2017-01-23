@@ -46,6 +46,7 @@ from config_parser import get_config_options
 logfile = "./" + 'xml-parsing.log'
 logging.basicConfig(filename=logfile, level=logging.DEBUG)
 
+
 def get_year_list(yearstring):
     """
     Given a [yearstring] of forms
@@ -65,6 +66,7 @@ def get_year_list(yearstring):
         end = int(sublist[1])+1 if len(sublist) > 1 else start+1
         years.extend(range(start,end))
     return years
+
 
 def generate_download_list(years, doctype='grant'):
     """
@@ -93,6 +95,7 @@ def generate_download_list(years, doctype='grant'):
             urls.append(a['href'])
             a = a.findNext()
     return urls
+
 
 def download_files(urls):
     """
@@ -125,6 +128,7 @@ def download_files(urls):
             continue
     return complete
 
+
 def run_parse(files, doctype='grant'):
     import parse
     import time
@@ -136,20 +140,23 @@ def run_parse(files, doctype='grant'):
     logging.basicConfig(filename=logfile, level=logging.DEBUG)
     parse.parse_files(files, doctype)
 
+
 def run_clean(process_config):
     if not process_config['clean']:
         return
     doctype = process_config['doctype']
-    command = 'run_clean.bat'
+    command = './run_clean.bat'
     os.system(command)
+
 
 def run_consolidate(process_config):
     if not process_config['consolidate']:
         return
     doctype = process_config['doctype']
     # TODO: optionally include previous disambiguation
-    command = 'run_consolidation.bat'
+    command = './run_consolidation.bat'
     os.system(command)
+
 
 if __name__=='__main__':
     s = datetime.datetime.now()

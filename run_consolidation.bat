@@ -1,7 +1,8 @@
 #!/bin/bash
 
-if exist "disambiguator.csv" (
-	"cmd /k del disambiguator.csv"
-)
+if [ -f disambiguator.csv]; then
+       del disambiguator.csv
+fi
+
 echo 'Running consolidation for disambiguator'
 python consolidate.py $1
